@@ -11,6 +11,12 @@
 /**
  * Include platform specific libraries here.
 */
+#include <Arduino.h>
+
+typedef struct dust_sensor_io{
+    uint8_t led;
+    uint8_t ain;
+}dust_sensor_io;
 
 /**
  * If platform specific header files do not include the definitions for types:

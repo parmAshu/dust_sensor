@@ -6,6 +6,9 @@
 
 #include "dust_sensor_pal.h"
 
+static uint8_t led_pin;
+static uint8_t ain_pin;
+
 /**
  * @brief This API will be called by the higher level code to initialize the IO pins which sensor is connected to.
  * 
@@ -22,6 +25,11 @@
 void pal_io_init(void * data)
 {
     /* !!...Platform specific code here...!! */
+    led_pin = ((dust_sensor_io*)data)->led;
+    ain_pin = ((dust_sensor_io*)data)->ain;
+
+    pinMode( led_pin, OUTPUT);
+    //pinMode( ain_pin, INPUT);
 }
 
 /**
@@ -36,6 +44,7 @@ void pal_io_init(void * data)
 void pal_led_set_state(uint8_t state)
 {
     /* !!...Platform specific code here...!! */
+    digitalWrite( led_pin, state);
 }
 
 /**
@@ -43,12 +52,16 @@ void pal_led_set_state(uint8_t state)
  * 
  * @param void NONE
  * 
- * @return double : output voltage of the dust sensor in Volts.
+ * @return double : output voltage of the dust sensor in milli Volts.
  * 
- * @note Put the platform specific code that can get the ADC reading and convert it to volts.
+ * @note Put the platform specific code that can get the ADC reading and convert it to milli Volts.
 */
 double pal_get_reading(void)
 {
     /* !!...Platform specific code here...!! */
-}
+    double reading = analogRead(ain_pin);
 
+    reading = 4.8828 * reading;   // 5000.0/1024 = 4.8828
+
+    return reading;
+}
