@@ -1,4 +1,4 @@
-#include "dust_sensor.h"
+#include "dustSensor.h"
 
 dust_sensor_io LINES = {
   .led = 4,

@@ -4,7 +4,7 @@
  * @brief This file contains core driver APIs.
 */
 
-#include "dust_sensor.h"
+#include "dustSensor.h"
 
 /**
 * @brief Class constructor
